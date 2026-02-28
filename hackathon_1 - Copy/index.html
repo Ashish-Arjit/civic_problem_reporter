@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CivicFix | Community Accountability Dashboard</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700&display=swap" rel="stylesheet">
+
+    <!-- Leaflet CSS -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+        integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="" />
+</head>
+
+<body>
+    <div class="background-blobs">
+        <div class="blob blob-1"></div>
+        <div class="blob blob-2"></div>
+        <div class="blob blob-3"></div>
+    </div>
+
+    <nav>
+        <div class="logo">
+            <span class="logo-icon">⚖️</span>
+            <span class="logo-text">Civic<span>Fix</span></span>
+        </div>
+        <div class="nav-status">
+            <span id="backend-status" class="status-indicator offline"></span>
+            <span id="status-text">Connecting...</span>
+        </div>
+    </nav>
+
+    <main>
+        <section class="hero">
+            <h1>Empowering Communities <br><span class="highlight">Solving Issues Together.</span></h1>
+            <p>Report local problems and watch as our platform ensures they get the attention they deserve—with
+                automated social escalation if authorities delay.</p>
+        </section>
+
+        <div class="grid-container">
+            <!-- Complaint Submission Section -->
+            <section class="card glass submission-card">
+                <div class="card-header">
+                    <h2>Report an Issue</h2>
+                    <p>Provide details to start the fix.</p>
+                </div>
+                <form id="complaint-form">
+                    <div class="form-group">
+                        <label for="username">Your Name</label>
+                        <input type="text" id="username" placeholder="Enter your name" required>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="phone">Phone Number</label>
+                            <input type="tel" id="phone" placeholder="e.g. +91 9876543210" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="priority">Priority Level</label>
+                            <select id="priority" required>
+                                <option value="Low">Low</option>
+                                <option value="Medium">Medium</option>
+                                <option value="High">High</option>
+                                <option value="Critical">Critical</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="preferred_platform">Escalation Platform</label>
+                            <select id="preferred_platform">
+                                <option value="Twitter">Twitter / X</option>
+                                <option value="Facebook">Facebook</option>
+                                <option value="Instagram">Instagram</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="image">Evidence Image</label>
+                            <div class="file-upload">
+                                <input type="file" id="image" accept="image/*">
+                                <span class="upload-btn">📸 Upload</span>
+                            </div>
+                        </div>
+                    </div>
+                    <button type="submit" class="btn-primary" id="submit-btn">
+                        <span class="btn-text">Submit Complaint</span>
+                        <div class="loader-dots hidden"><span></span><span></span><span></span></div>
+                    </button>
+                </form>
+            </section>
+
+            <!-- Demo Control Center -->
+            <section class="card glass controls-card">
+                <div class="card-header">
+                    <h2>Demo Control Center</h2>
+                    <p>Simulate timeline and social pressure.</p>
+                </div>
+                <div class="control-grid">
+                    <button id="force-escalation-btn" class="btn-secondary">
+                        <span class="icon">⏩</span>
+                        <div class="btn-content">
+                            <strong>Force Escalation</strong>
+                            <span>Backdate pending issues by 50h</span>
+                        </div>
+                    </button>
+                    <button id="check-pending-btn" class="btn-secondary">
+                        <span class="icon">🔍</span>
+                        <div class="btn-content">
+                            <strong>Analyze Status</strong>
+                            <span>Run auto-escalation check</span>
+                        </div>
+                    </button>
+                    <div class="simulation-log" id="simulation-log">
+                        <div class="log-entry system">Standing by for platform simulation...</div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Map Dashboard -->
+            <section class="card glass map-card">
+                <div class="card-header">
+                    <h2>Incident Map</h2>
+                    <p>Live geographical view of complaints.</p>
+                </div>
+                <div id="incident-map" class="map-container"></div>
+            </section>
+
+            <!-- Complaints Dashboard -->
+            <section class="card glass dashboard-card">
+                <div class="card-header">
+                    <div class="header-main">
+                        <h2>Live Incident Dashboard</h2>
+                        <span class="badge" id="complaint-count">0</span>
+                    </div>
+                    <button id="refresh-btn" class="btn-icon">🔄</button>
+                </div>
+                <div class="complaints-list" id="complaints-list">
+                    <!-- Complaints will be injected here -->
+                    <div class="empty-state">
+                        <div class="icon">📁</div>
+                        <p>No complaints submitted yet.</p>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <div id="toast-container"></div>
+
+    <!-- Leaflet JS -->
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+        integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+    <script src="script.js"></script>
+</body>
+
+</html>
